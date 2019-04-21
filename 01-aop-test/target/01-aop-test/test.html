@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>省略号</title>
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        .ellipsis {
+            width: 200px;
+            height: 150px;
+            font-size: 14px;
+            border: 1px solid;
+        }
+        .nowrap {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .showAll,
+        .hidePart {
+            cursor: pointer;
+            color: #003BB3;
+        }
+    </style>
+</head>
+<body>
+<!--单行-->
+<p class="ellipsis nowrap">
+    超出省略号显示超出省略号显示超出省略号显示超出省略号显示
+</p>
+<!--多行-->
+<p class="ellipsis wrap" id="wrap">
+    超出省略号显示超出省略号显示超出省略号显示超出省略号显示超出省略号显示超出省略号显示超出省略号显示超出省略号显示略号显示
+</p>
+
+<script>
+    var TextEllipsis = {
+        textEllipsis : function(textContainer,maxLength,showAll){
+            var textContainer = document.getElementById(textContainer);//object
+            var textAll = textContainer.innerText;//string
+            var maxLen = maxLength;//number
+            var show = showAll;//boolean
+            if(textContainer.innerText.length > maxLen){
+                if(show == true){
+                    textPart = textAll.substring(0,maxLen);
+                    textContainer.innerHTML = textPart + "……<span id='showAll' style='cursor:pointer;color:#003BB3'>展开全部</span>";
+                    document.getElementById("showAll").onclick = function(){
+                        TextEllipsis.showAllText(textContainer,textAll,maxLen);
+                    }
+                }else {
+                    textPart = textAll.substring(0,maxLen);
+                    textContainer.innerHTML = textPart + "<span id='showAll'>…</span>";
+                }
+            }
+        },
+        showAllText : function(textContainer,textAll,maxLength){
+            textContainer.innerHTML = textAll + "<span id='hidePart' style='cursor:pointer;color:#003BB3'>收起</span>";
+            document.getElementById("hidePart").onclick = function(){
+                TextEllipsis.hidePart(textContainer,textAll,maxLength)
+            }
+        },
+        hidePart : function(textContainer,textAll,maxLength){
+            textContainer.innerHTML = textAll.substring(0,maxLength) + "……<span id='showAll' style='cursor:pointer;color:#003BB3'>展开全部</span>";
+            document.getElementById("showAll").onclick = function(){
+                TextEllipsis.showAllText(textContainer,textAll,maxLength)
+            }
+        }
+    }
+    $(function(){
+        TextEllipsis.textEllipsis("wrap",25,true);
+    })
+</script>
+</body>
+</html>

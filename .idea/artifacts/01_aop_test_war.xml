@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="01-aop-test:war">
+    <output-path>$PROJECT_DIR$/01-aop-test/target</output-path>
+    <root id="archive" name="01-aop-test.war">
+      <element id="artifact" artifact-name="01-aop-test:war exploded" />
+    </root>
+  </artifact>
+</component>
